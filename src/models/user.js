@@ -47,7 +47,12 @@ const userSchema = new mongoose.Schema({
             type:String,
             required:true
         }
-    }]
+    }],
+    avatar:{
+        type:Buffer
+    }
+},{
+    timestamps:true
 })
 
 
@@ -62,6 +67,7 @@ userSchema.methods.toJSON = function (){
     const userObject = user.toObject()
     delete userObject.password
     delete userObject.tokens
+    delete userObject.avatar
     return userObject
 }
 
@@ -97,7 +103,6 @@ userSchema.pre("save",async function(next){
 
 userSchema.post("findOneAndDelete", async function (user) {
     await Task.deleteMany({ owner : user._id });
-
  });
 
 const User = mongoose.model("User",userSchema)

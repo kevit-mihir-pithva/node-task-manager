@@ -4,12 +4,14 @@ const sharp = require("sharp");
 const User = require("../models/user");
 const router = new express.Router();
 const auth = require("../middleware/auth");
+const { sendWelcomeMail , sendCancelationMail} = require("../emails/account")
 
 
 router.post("/users"  ,async (req, res) => {
     try {
         const user = new User(req.body);
         await user.save();
+        sendWelcomeMail(user.email,user.name)
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token });
     } catch (error) {
@@ -77,6 +79,7 @@ router.patch("/users/me", auth, async (req, res) => {
 router.delete("/users/me", auth, async (req, res) => {
     try {
         await User.findOneAndDelete(req.user)
+        sendCancelationMail(req.user.email,req.user.name)
         res.send(req.user);
     } catch (error) {
         res.status(500).send("Error: " + error);

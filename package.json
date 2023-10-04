@@ -9,7 +9,8 @@
     "test": "env-cmd -f ./config/test.env jest --watch --runInBand",
     "eslint": "npx eslint .",
     "format:check": "npx prettier --check .",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "prepare": "husky install"
   },
   "jest": {
     "testEnvironment": "node"
@@ -32,6 +33,7 @@
     "env-cmd": "^10.1.0",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
+    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",

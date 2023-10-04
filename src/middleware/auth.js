@@ -11,31 +11,32 @@ const User = require("../models/user")
  * @param {function} next - Next middleware function.
  */
 async function auth(req, res, next) {
-    try {
-        // Extract the JWT token from the Authorization header
-        const token = req.header("Authorization").replace("Bearer ", "");
+  try {
+    // Extract the JWT token from the Authorization header
+    const token = req.header("Authorization").replace("Bearer ", "")
 
-        // Verify the JWT token using the secret key
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Verify the JWT token using the secret key
+    // eslint-disable-next-line no-undef
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
-        // Find the user associated with the token
-        const user = await User.findOne({ _id: decoded._id, "tokens.token": token });
+    // Find the user associated with the token
+    const user = await User.findOne({ _id: decoded._id, "tokens.token": token })
 
-        // If no user is found, throw an error
-        if (!user) {
-            throw new Error();
-        }
-
-        // Attach the token and user object to the request for further use
-        req.token = token;
-        req.user = user;
-
-        // Continue to the next middleware or route
-        next();
-    } catch (error) {
-        // Send a 401 Unauthorized response if authentication fails
-        res.status(401).send("Error: Please authenticate.");
+    // If no user is found, throw an error
+    if (!user) {
+      throw new Error()
     }
+
+    // Attach the token and user object to the request for further use
+    req.token = token
+    req.user = user
+
+    // Continue to the next middleware or route
+    next()
+  } catch (error) {
+    // Send a 401 Unauthorized response if authentication fails
+    res.status(401).send("Error: Please authenticate.")
+  }
 }
 
-module.exports = auth;
+module.exports = auth

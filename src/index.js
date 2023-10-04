@@ -1,7 +1,8 @@
-const app = require("./app");
+const app = require("./app")
 
 // Port number from environment variables
-const port = process.env.PORT;
+// eslint-disable-next-line no-undef
+const port = process.env.PORT
 
 /**
  * Start the Express server.
@@ -9,5 +10,5 @@ const port = process.env.PORT;
  * @param {number} port - The port number on which the server will listen.
  */
 app.listen(port, () => {
-  console.log("Server is up on port: " + port);
-});
+  console.log("Server is up on port: " + port)
+})

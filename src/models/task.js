@@ -1,25 +1,33 @@
 const mongoose = require("mongoose")
 
+/**
+ * Defines the schema for the Task model.
+ * @type {mongoose.Schema}
+ */
 const taskSchema = new mongoose.Schema({
-    description:{
-        type:String,
-        required:true,
-        trim:true,
-        minlength:5
+    description: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 5
     },
-    completed:{
-        type:Boolean,
-        default:false
+    completed: {
+        type: Boolean,
+        default: false
     },
-    owner:{
-        type:mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:"User"
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "User"
     }
-},{
-    timestamps:true
-})
+}, {
+    timestamps: true
+});
 
-const Task = mongoose.model("Task",taskSchema)
+/**
+ * The Mongoose model for the Task schema.
+ * @type {mongoose.Model<Task>}
+ */
+const Task = mongoose.model("Task", taskSchema);
 
-module.exports = Task
+module.exports = Task;

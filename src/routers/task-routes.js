@@ -3,6 +3,15 @@ const Task = require("../models/task");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 
+/**
+ * Create a new task.
+ *
+ * @name POST /tasks
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 router.post("/tasks", auth, async (req, res) => {
   try {
     const task = new Task({
@@ -16,6 +25,15 @@ router.post("/tasks", auth, async (req, res) => {
   }
 });
 
+/**
+ * Get a list of tasks with optional filtering and sorting.
+ *
+ * @name GET /tasks
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 //GET /tasks?completed=true
 //GET /tasks?limit=10&skip=10
 //GET /tasks?sortBy=createdAt:desc
@@ -48,6 +66,15 @@ router.get("/tasks", auth, async (req, res) => {
   }
 });
 
+/**
+ * Get a single task by its ID.
+ *
+ * @name GET /tasks/:id
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 router.get("/tasks/:id", auth, async (req, res) => {
   try {
     const _id = req.params.id;
@@ -58,6 +85,15 @@ router.get("/tasks/:id", auth, async (req, res) => {
   }
 });
 
+/**
+ * Update a task by its ID.
+ *
+ * @name PATCH /tasks/:id
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 router.patch("/tasks/:id", auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ["description", "completed"];
@@ -81,6 +117,15 @@ router.patch("/tasks/:id", auth, async (req, res) => {
   }
 });
 
+/**
+ * Delete a task by its ID.
+ *
+ * @name DELETE /tasks/:id
+ * @function
+ * @async
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 router.delete("/tasks/:id", auth, async (req, res) => {
   try {
     const _id = req.params.id;
